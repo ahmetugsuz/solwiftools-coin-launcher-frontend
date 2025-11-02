@@ -12,7 +12,7 @@ import RadialGradient from '../components/RadialGradient';
 import { useLicense } from '../hooks/useLicense';
 import toast from 'react-hot-toast';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 
 window.Buffer = Buffer;
 
