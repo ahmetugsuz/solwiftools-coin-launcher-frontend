@@ -181,32 +181,25 @@ const AppContent = () => {
 };
 
 const App = () => {
-    const network = WalletAdapterNetwork.MainnetBeta;
-    const endpoint = useMemo(() => 'https://maximum-falling-leaf.solana-mainnet.quiknode.pro/f8542a105543937e8a2a44ae2cd850a1cd2ee6cc/', []);
-    const wallets = useMemo(() => [new PhantomWalletAdapter()], []);
-
     return (
-        <ConnectionProvider endpoint={endpoint}>
-            <WalletProvider wallets={wallets} autoConnect>
-                <WalletModalProvider>
-                    <ToastContainer
-                        position="top-right"
-                        autoClose={3000}
-                        hideProgressBar={false}
-                        newestOnTop
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                        theme="dark"
-                        style={{ position: 'fixed', zIndex: 9999 }}
-                    />
-                    <AppContent />
-                </WalletModalProvider>
-            </WalletProvider>
-        </ConnectionProvider>
+      <>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          style={{ position: 'fixed', zIndex: 9999 }}
+        />
+        <AppContent />
+      </>
     );
-};
+  };
+  
 
 export default App;
