@@ -30,3 +30,6 @@ yarn-error.log*
 
 # Mac and Linux junk
 *.swp
+
+# Local Netlify folder
+.netlify

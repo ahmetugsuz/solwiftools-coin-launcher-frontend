@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
+import bs58 from 'bs58';
 import HomePage from './pages/HomePage';
 import DashboardPage from './pages/DashboardPage';
 import TokenCreationPage from './pages/TokenCreationPage';

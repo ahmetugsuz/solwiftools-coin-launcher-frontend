@@ -1,9 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Buffer } from 'buffer';
 import './index.css'; // Make sure this file exists
 import App from './App'; // Ensure this is correctly imported
 import { BrowserRouter } from 'react-router-dom'; // Import BrowserRouter here
 import { Toaster } from 'react-hot-toast'; // Import Toaster component
+
+// Polyfills for Solana wallet adapters
+window.Buffer = Buffer;
+window.global = window;
 
 const rootElement = document.getElementById('app');
 if (rootElement) {
