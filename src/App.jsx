@@ -16,9 +16,9 @@ import '@solana/wallet-adapter-react-ui/styles.css';
 import './styles/main.css';
 import './styles/TokenCreationPage.css';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
+//import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+//import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
+//import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 
 import { clusterApiUrl } from '@solana/web3.js';
 import { useMemo } from 'react';
@@ -105,6 +105,7 @@ const AppContent = () => {
       
           const challengeRes = await fetch(`/api/users/auth/challenge?wallet=${address}`);
           const { challenge } = await challengeRes.json();
+          if (!challenge) throw new Error('Challenge not received');
       
           const encodedMessage = new TextEncoder().encode(challenge);
           const signed = await window.solana.signMessage(encodedMessage, "utf8");
@@ -116,6 +117,7 @@ const AppContent = () => {
             body: JSON.stringify({ walletAddress: address, signature })
           });
           const verifyData = await verifyRes.json();
+          if (!verifyRes.ok) throw new Error(verifyData.error || 'Verification failed');
       
           if (verifyData.token) {
             localStorage.setItem('jwt', verifyData.token);

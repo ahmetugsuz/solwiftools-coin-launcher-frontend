@@ -24,12 +24,35 @@ function handleProblematicModules() {
   };
 }
 
+function injectGlobalRequest() {
+  return {
+    name: 'inject-global-request',
+    enforce: 'pre',
+    transform(code, id) {
+      if (id.endsWith('main.jsx')) {
+        const polyfill = `
+          globalThis.Request = globalThis.Request || fetch('').constructor;
+          globalThis.Headers = globalThis.Headers || new fetch('').constructor('').headers.constructor;
+          globalThis.Response = globalThis.Response || new Response().constructor;
+        `;
+        return {
+          code: polyfill + '\n' + code,
+          map: null,
+        };
+      }
+      return null;
+    }
+  };
+}
+
+
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/',
   plugins: [
     react(),
-    handleProblematicModules()
+    handleProblematicModules(),
+    injectGlobalRequest()
   ],
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -39,8 +62,11 @@ export default defineConfig({
     },
   },
   define: {
-    global: 'window',
-    'process.env': {}
+    global: 'globalThis',
+    'process.env': {},
+    'globalThis.Request': 'fetch("").constructor',
+    'globalThis.Headers': 'new fetch("").constructor("").headers.constructor',
+    'globalThis.Response': 'new Response().constructor',
   },
   server: {
     port: 5173,

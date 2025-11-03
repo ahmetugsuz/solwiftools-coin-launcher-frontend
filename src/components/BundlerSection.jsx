@@ -349,6 +349,9 @@ const BundlerSection = () => {
         body: JSON.stringify(launchDetails)
       });
       const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to start prepare launch');
+      }
       if (!data.prepId) throw new Error('No prepId returned');
       const eventSource = new EventSource(`/api/bundler/tokens/prepare-launch/logs/${data.prepId}`);
       eventSource.onmessage = (event) => {
